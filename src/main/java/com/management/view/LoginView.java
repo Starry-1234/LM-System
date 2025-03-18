@@ -50,6 +50,18 @@ public class LoginView extends JPanel {
 
                     // 打开主界面
                     MainFrame mainFrame = new MainFrame();
+                    mainFrame.showMainUI("ADMIN"); // 管理员
+                    mainFrame.setVisible(true);
+                } else if ("user".equals(username) && "123456".equals(password)) {
+                    JOptionPane.showMessageDialog(LoginView.this, "登录成功！");
+
+                    // 关闭登录窗口
+                    loginFrame.dispose();
+
+                    // 打开主界面（普通用户，隐藏管理员管理按钮）
+                    MainFrame mainFrame = new MainFrame();
+                    mainFrame.showPage("BookManagement"); // 默认显示书籍管理页面
+                    mainFrame.showMainUI("USER"); // 普通用户
                     mainFrame.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(LoginView.this, "用户名或密码错误！");

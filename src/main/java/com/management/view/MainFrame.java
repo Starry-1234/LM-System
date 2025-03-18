@@ -32,11 +32,11 @@ public class MainFrame extends JFrame {
         cardLayout.show(contentPanel, "BookManagement");
 
         // 登录成功后显示侧边栏和内容区域
-        showMainUI();
+        showMainUI("USER");
     }
 
     // 显示主界面（侧边栏 + 内容区域）
-    public void showMainUI() {
+    public void showMainUI(String role) {
         // 创建左侧边栏
         sideBar = new JPanel();
         sideBar.setLayout(new BoxLayout(sideBar, BoxLayout.Y_AXIS));
@@ -47,7 +47,10 @@ public class MainFrame extends JFrame {
         addSideBarButton("书籍管理", "BookManagement");
         addSideBarButton("借阅记录", "BorrowRecord");
         addSideBarButton("用户管理", "UserManagement");
-        addSideBarButton("管理员管理", "AdminManagement");
+        // 如果是管理员，显示管理员管理按钮
+        if ("ADMIN".equals(role)) {
+            addSideBarButton("管理员管理", "AdminManagement");
+        }
         addSideBarButton("公告信息", "Announcement");
 
         // 添加组件到窗口
@@ -78,5 +81,12 @@ public class MainFrame extends JFrame {
     // 切换页面
     public void showPage(String pageName) {
         cardLayout.show(contentPanel, pageName);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            MainFrame mainFrame = new MainFrame();
+            mainFrame.setVisible(true);
+        });
     }
 }
