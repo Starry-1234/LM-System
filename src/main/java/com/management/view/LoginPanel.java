@@ -1,4 +1,6 @@
-package login.oop;
+package com.management.view;
+
+import com.management.view.LoginFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,15 +14,16 @@ import java.sql.ResultSet;
 public class LoginPanel extends JPanel {
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private LoginSystem loginSystem;
+    private LoginFrame loginFrame;
 
-    public LoginPanel(LoginSystem loginSystem) {
-        this.loginSystem = loginSystem;
+    public LoginPanel(LoginFrame loginFrame) {
+        this.loginFrame = loginFrame;
         setLayout(new BorderLayout());
 
         JLabel titleLabel = new JLabel("图书管理系统", JLabel.CENTER);
         titleLabel.setFont(new Font("微软雅黑", Font.BOLD, 20));
         titleLabel.setForeground(Color.BLUE);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0)); // 上、左、下、右边距
 
         JPanel loginPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -74,6 +77,13 @@ public class LoginPanel extends JPanel {
                 String password = new String(passwordField.getPassword());
                 if (checkLogin(username, password)) {
                     JOptionPane.showMessageDialog(LoginPanel.this, "登录成功", "提示", JOptionPane.INFORMATION_MESSAGE);
+
+                    // 关闭登录窗口
+                    loginFrame.dispose();
+
+                    // 打开主界面
+                    MainFrame mainFrame = new MainFrame();
+                    mainFrame.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(LoginPanel.this, "用户名或密码错误", "错误", JOptionPane.ERROR_MESSAGE);
                 }
@@ -83,14 +93,14 @@ public class LoginPanel extends JPanel {
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                loginSystem.showPanel("register");
+                loginFrame.showPanel("register");
             }
         });
 
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                loginSystem.showPanel("resetPassword");
+                loginFrame.showPanel("resetPassword");
             }
         });
     }
