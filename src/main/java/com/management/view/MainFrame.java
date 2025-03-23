@@ -13,7 +13,7 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         // 设置窗口属性
         setTitle("图书管理系统");
-        setSize(2000, 1200);
+        setSize(1200, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
