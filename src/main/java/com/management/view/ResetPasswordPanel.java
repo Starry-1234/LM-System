@@ -74,7 +74,7 @@ public class ResetPasswordPanel extends JPanel {
                     JOptionPane.showMessageDialog(ResetPasswordPanel.this, "请输入完整信息", "错误", JOptionPane.ERROR_MESSAGE);
                 } else {
                     try {
-                        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8", "root", "root");
+                        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8", "root", "1920411860z");
                         String sql = "SELECT * FROM login WHERE 用户名 = ? AND 邮箱 = ?";
                         PreparedStatement pstmt = conn.prepareStatement(sql);
                         pstmt.setString(1, username);

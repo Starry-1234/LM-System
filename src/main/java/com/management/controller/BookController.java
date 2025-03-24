@@ -16,7 +16,7 @@ public class BookController {
         Properties properties = new Properties();
         try {
             // 使用类加载器读取 application.properties 文件
-            properties.load(getClass().getClassLoader().getResourceAsStream("application.properties"));
+            properties.load(getClass().getClassLoader().getResourceAsStream("db.properties"));
 
             BasicDataSource dataSource = new BasicDataSource();
             dataSource.setUrl(properties.getProperty("db.url"));

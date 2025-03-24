@@ -87,7 +87,7 @@ public class RegisterPanel extends JPanel {
                     JOptionPane.showMessageDialog(RegisterPanel.this, "请输入完整信息", "错误", JOptionPane.ERROR_MESSAGE);
                 } else {
                     try {
-                        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "root");
+                        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "1920411860z");
                         String sql = "INSERT INTO login (用户名, 密码, 邮箱) VALUES (?, ?, ?)";
                         PreparedStatement pstmt = conn.prepareStatement(sql);
                         pstmt.setString(1, username);

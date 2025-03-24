@@ -4,13 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 
 public class MainFrame extends JFrame {
     private JPanel sideBar;
     private JPanel contentPanel;
     private CardLayout cardLayout;
+    private Connection dbConnection; // 数据库连接对象
 
-    public MainFrame() {
+    public MainFrame(Connection connection) {
+        this.dbConnection = connection; // 初始化数据库连接
+
         // 设置窗口属性
         setTitle("图书管理系统");
         setSize(1200, 800);
@@ -21,10 +25,10 @@ public class MainFrame extends JFrame {
         cardLayout = new CardLayout();
         contentPanel = new JPanel(cardLayout);
 
-        // 添加页面到内容区域
+        // 添加页面到内容区域，传递数据库连接
         contentPanel.add(new BookManagementView(), "BookManagement"); // 书籍管理页面
         contentPanel.add(new BorrowRecordView(), "BorrowRecord"); // 借阅记录页面
-        contentPanel.add(new UserManagementView(), "UserManagement"); // 用户管理页面
+        contentPanel.add(new UserManagementView(dbConnection), "UserManagement"); // 用户管理页面
         contentPanel.add(new AdminManagementView(), "AdminManagement"); // 管理员管理页面
         contentPanel.add(new AnnouncementView(), "Announcement"); // 公告信息页面
 
