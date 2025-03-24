@@ -6,19 +6,31 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Properties;
 
 public class LoginPanel extends JPanel {
     private JTextField usernameField;
     private JPasswordField passwordField;
     private LoginFrame loginFrame;
+    private Properties properties;
 
     public LoginPanel(LoginFrame loginFrame) {
         this.loginFrame = loginFrame;
         setLayout(new BorderLayout());
+
+        // 读取 application.properties 文件
+        properties = new Properties();
+        try (FileInputStream fis = new FileInputStream("src/main/resources/application.properties")) {
+            properties.load(fis);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         JLabel titleLabel = new JLabel("图书管理系统", JLabel.CENTER);
         titleLabel.setFont(new Font("微软雅黑", Font.BOLD, 20));
@@ -107,7 +119,10 @@ public class LoginPanel extends JPanel {
 
     private boolean checkLogin(String username, String password) {
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "root");
+            String url = properties.getProperty("db.url");
+            String user = properties.getProperty("db.username");
+            String pass = properties.getProperty("db.password");
+            Connection conn = DriverManager.getConnection(url, user, pass);
             String sql = "SELECT * FROM login WHERE 用户名 = ? AND 密码 = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, username);

@@ -2,20 +2,31 @@ package com.management.controller;
 
 import com.management.dao.BookDAO;
 import com.management.model.Book;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Properties;
 
 public class BookController {
     private BookDAO bookDAO;
 
     public BookController() {
+        Properties properties = new Properties();
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "root");
+            // 使用类加载器读取 application.properties 文件
+            properties.load(getClass().getClassLoader().getResourceAsStream("application.properties"));
+
+            BasicDataSource dataSource = new BasicDataSource();
+            dataSource.setUrl(properties.getProperty("db.url"));
+            dataSource.setUsername(properties.getProperty("db.username"));
+            dataSource.setPassword(properties.getProperty("db.password"));
+            dataSource.setDriverClassName(properties.getProperty("db.driver"));
+
+            Connection conn = dataSource.getConnection();
             bookDAO = new BookDAO(conn);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
