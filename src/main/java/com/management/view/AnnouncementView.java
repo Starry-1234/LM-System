@@ -1,7 +1,7 @@
 package com.management.view;
 
 import com.management.controller.AnnouncementController;
-import com.management.model.Announcement;
+import com.management.view.AnnouncementView;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -19,13 +19,13 @@ public class AnnouncementView extends JPanel {
         add(titleLabel, BorderLayout.NORTH);
 
         // 获取所有公告
-        List<Announcement> announcements = announcementController.getAllAnnouncements();
+        List<com.management.model.Announcement> announcements = announcementController.getAllAnnouncements();
 
         // 表格模型
         String[] columnNames = {"ID", "标题", "内容", "发布日期"};
         Object[][] data = new Object[announcements.size()][4];
         for (int i = 0; i < announcements.size(); i++) {
-            Announcement announcement = announcements.get(i);
+            com.management.model.Announcement announcement = announcements.get(i);
             data[i][0] = announcement.getId();
             data[i][1] = announcement.getTitle();
             data[i][2] = announcement.getContent();

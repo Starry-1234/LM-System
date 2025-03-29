@@ -2,7 +2,6 @@ package com.management.view;
 
 import com.management.controller.BookController;
 import com.management.model.Book;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
